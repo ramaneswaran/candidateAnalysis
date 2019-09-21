@@ -1,13 +1,11 @@
 # pip3 dependecies
 
-Name: environs
-Version: 5.2.1
-Summary: simplified environment variable parsing
-Home-page: https://github.com/sloria/environs
-Author: Steven Loria
-Author-email: sloria1@gmail.com
-License: MIT
+Name: python-dotenv
+Version: 0.10.3
+Summary: Add .env support to your django/flask apps in development and deployments
+Home-page: http://github.com/theskumar/python-dotenv
+Author: Saurabh Kumar
+Author-email: me+github@saurabh-kumar.com
+License: UNKNOWN
 Location: /home/raman/.local/lib/python3.6/site-packages
-Requires: python-dotenv, marshmallow
-
-
+Requires:
