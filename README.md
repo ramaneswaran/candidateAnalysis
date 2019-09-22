@@ -22,7 +22,8 @@ artistic creativity dont mix well, so the front end design is so and so , but th
 
 # Technology Used
 
-1)The backend is built using Python3 and used Flask 
+1)The backend is built using Python3 and runs on a Flask server
+
 2)The front end is built using HTML5 and materialze.css
 
 # Any features to that might be added
