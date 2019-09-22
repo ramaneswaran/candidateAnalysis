@@ -36,11 +36,12 @@ candidates = [
 def analyse_candidates():
     #Collect more data
     collect_data.collect_candidate_data()
-    
+
     for candidate in candidates:
 
         name = candidate['name']
         df = pd.read_csv('data/'+name+'.csv', sep=';')
+        df = df.drop_duplicates(subset ="ID", keep = 'first') 
         df = df[pd.notnull(df['TEXT'])]
 
         #Analyse sentiment
