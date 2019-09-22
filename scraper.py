@@ -4,6 +4,7 @@ import os
 import re
 import tweepy
 import json
+import csv
 from dotenv import load_dotenv
 load_dotenv()
 
@@ -30,10 +31,11 @@ class scraper():
         '''
         return ' '.join(re.sub("(@[A-Za-z0-9]+)|([^0-9A-Za-z \t])|(\w+:\/\/\S+)", " ", tweet).split()) 
 
-    def get_tweets(self, query, candidate, count=10):
-        tweets = tweepy.Cursor(self.api.search, q=query+' -filter:retweets').items(10)
+    def get_tweets(self, query, count=10):
+        tweets = tweepy.Cursor(self.api.search, q=query+' -filter:retweets').items(100)
         
         data = []
+
         #Looping through the tweets
         for tweet in tweets:
         
@@ -46,23 +48,30 @@ class scraper():
            row.append(tweet.retweet_count)
            data.append(row)
 
-        for data_row in data:
-            print(data_row)        
-        
+        return data
+
+    def store_tweets(self, tweets, candidate):
+        with open('./data/'+candidate+'.csv',mode='a', newline='') as file:
+            writer = csv.writer(file,  delimiter=';', quoting=csv.QUOTE_MINIMAL)
+            
+            for tweet in tweets:
+                writer.writerow(tweet)
+
+                
 CONSUMER_TOKEN = os.getenv("CONSUMER_TOKEN")
 CONSUMER_SECRET = os.getenv("CONSUMER_SECRET")
 
 
 scrape = scraper(CONSUMER_TOKEN,CONSUMER_SECRET)
 scrape.auth()
-scrape.get_tweets('#Sanders2020', 'sanders')
-
+tweets = scrape.get_tweets('#trump2020')
+scrape.store_tweets(tweets, 'trump')
 
 #Creating list of key words
 
 candidates = {
-    "sanders" : ['#Sanders2020', '@SenSanders', '@BernieSanders'],
-    "trump" : ['#Trump2020', '@realDonaldTrump'],
-    "biden" : ['#Biden2020', '@JoeBiden']
+    "sanders" : '#Sanders2020' + '@SenSanders' + '@BernieSanders',
+    "trump" : '#Trump2020' + '@realDonaldTrump',
+    "biden" : '#Biden2020' +  '@JoeBiden'
 }
 
