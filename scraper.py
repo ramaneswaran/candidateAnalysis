@@ -1,6 +1,7 @@
 #  Importing the required packages
 
 import os
+from os import path
 import re
 import tweepy
 import json
@@ -51,13 +52,20 @@ class scraper():
         return data
 
     def store_tweets(self, tweets, candidate):
+        if path.exists('./data/'+candidate+'.csv')=='False':
+            with open('./data/'+candidate+'.csv',mode='a', newline='') as file:
+                writer = csv.writer(file,  delimiter=';', quoting=csv.QUOTE_MINIMAL)
+
+                writer.writerow(['ID', 'TEXT', 'YEAR', 'MONTH', 'DAY', 'RETWEET_COUNT'])
+            
         with open('./data/'+candidate+'.csv',mode='a', newline='') as file:
             writer = csv.writer(file,  delimiter=';', quoting=csv.QUOTE_MINIMAL)
             
             for tweet in tweets:
                 writer.writerow(tweet)
-
-                
+    
+            
+        
 CONSUMER_TOKEN = os.getenv("CONSUMER_TOKEN")
 CONSUMER_SECRET = os.getenv("CONSUMER_SECRET")
 
