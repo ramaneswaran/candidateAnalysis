@@ -42,21 +42,22 @@ class scraper():
         
            row = []
            row.append(tweet.id)
-           row.append(self.clean_tweet(tweet.text))
+           row.append(str(self.clean_tweet(tweet.text)))
            row.append(tweet.created_at.year)
            row.append(tweet.created_at.month)
            row.append(tweet.created_at.day)
            row.append(tweet.retweet_count)
+           row.append(-1)
            data.append(row)
 
         return data
 
     def store_tweets(self, tweets, candidate):
-        if path.exists('./data/'+candidate+'.csv')=='False':
+        if path.exists('./data/'+candidate+'.csv')==False:
             with open('./data/'+candidate+'.csv',mode='a', newline='') as file:
                 writer = csv.writer(file,  delimiter=';', quoting=csv.QUOTE_MINIMAL)
 
-                writer.writerow(['ID', 'TEXT', 'YEAR', 'MONTH', 'DAY', 'RETWEET_COUNT'])
+                writer.writerow(['ID', 'TEXT', 'YEAR', 'MONTH', 'DAY', 'RETWEET_COUNT','SENTIMENT'])
             
         with open('./data/'+candidate+'.csv',mode='a', newline='') as file:
             writer = csv.writer(file,  delimiter=';', quoting=csv.QUOTE_MINIMAL)
