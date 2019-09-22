@@ -19,16 +19,12 @@ candidates = {
 }
 
 
-'''
-'#Sanders2020' + '@SenSanders' + '@BernieSanders',
- "trump" : '#Trump2020' + '@realDonaldTrump',
-    "biden" : '#Biden2020' +  '@JoeBiden',
-'''
 
 #Collecting data and storing in csv files
-for candidate in candidates:
-    tweets = scrape.get_tweets(candidates[candidate])
-    scrape.store_tweets(tweets, candidate)
+def collect_candidate_data():
+    for candidate in candidates:
+        tweets = scrape.get_tweets(candidates[candidate])
+        scrape.store_tweets(tweets, candidate)
 
 
 
