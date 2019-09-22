@@ -61,17 +61,3 @@ class scraper():
 CONSUMER_TOKEN = os.getenv("CONSUMER_TOKEN")
 CONSUMER_SECRET = os.getenv("CONSUMER_SECRET")
 
-
-scrape = scraper(CONSUMER_TOKEN,CONSUMER_SECRET)
-scrape.auth()
-tweets = scrape.get_tweets('#trump2020')
-scrape.store_tweets(tweets, 'trump')
-
-#Creating list of key words
-
-candidates = {
-    "sanders" : '#Sanders2020' + '@SenSanders' + '@BernieSanders',
-    "trump" : '#Trump2020' + '@realDonaldTrump',
-    "biden" : '#Biden2020' +  '@JoeBiden'
-}
-
